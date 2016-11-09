@@ -38,11 +38,20 @@ function getMessages () {
 // Takes a message object with a body property and puts that body
 // inside a list item (i.e. <li>), returns it
 function createMessage (message) {
-  return "<li><span>" + message.id + "</span>" + message.body + "</li>";
+  return "<li><span>" + message.id + "</span>" + message.body +
+  "<i data-id=" + message.id + ">X</i></li>";
 }
 
 $(document).ready(function() {
   setInterval(getMessages, 1000);
+
+  $('ul#messages').on('click', 'i', function (event) {
+    var messageId =  $(this).attr('data-id');
+    $.ajax({
+      url: DOMAIN + '/messages/' + messageId,
+      method: 'delete'
+    })
+  })
 
   $('form').on('submit', function (event) {
     event.preventDefault();
