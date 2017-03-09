@@ -1,6 +1,5 @@
 function Q (query) { return document.querySelector(query) }
 
-
 // 👇 how to post a message with fetch
 function postMessage(body) {
   const fData = new FormData();
@@ -97,8 +96,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // and files
     const fData = new FormData(event.currentTarget);
 
-    fData.set('body', 'dsadas');
-    fData.get('body')
+    // setting & getting params on FormData
+    // fData.set('body', 'Hello, World!');
+    // fData.get('body')
 
     // to do a post request with fetch
     // as a second argument give an object
