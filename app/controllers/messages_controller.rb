@@ -16,4 +16,14 @@ class MessagesController < ApplicationController
     head :ok
   end
 
+  def toggle_flag
+    message = Message.find(params[:id])
+    if message.flagged?
+      message.update(flagged: false)
+    else
+      message.update(flagged: true)
+    end
+    head :ok
+  end
+
 end

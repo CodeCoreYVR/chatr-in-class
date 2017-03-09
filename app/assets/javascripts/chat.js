@@ -47,6 +47,7 @@ function renderMessages (messages) {
       <strong>${m.username}</strong>
       ${m.body}
       <i class='delete-button'>X</i>
+      <i class='flag-button'>${m.flagged ? 'F' : 'NF'}</i> 
     </li>
     `).join('')
 }
@@ -125,6 +126,13 @@ document.addEventListener('DOMContentLoaded', () => {
       fetch(`/messages/${messageId}`, {method: 'delete'})
         // .then(() => refreshMessages());
         // .then will call whatever function we pass it when the promise is resolved
+        .then(refreshMessages);
+    }
+
+    if (target.classList.contains('flag-button')) {
+      event.stopPropagation();
+      const messageId = target.parentElement.getAttribute('data-id');
+      fetch(`/messages/${messageId}/toggle_flag`, {method: 'put'})
         .then(refreshMessages);
     }
   })
