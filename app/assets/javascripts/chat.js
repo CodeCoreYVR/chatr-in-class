@@ -1,5 +1,12 @@
 function Q (query) { return document.querySelector(query) }
 
+// Transforms formData into url params
+function urlParams (formData) {
+  return Array
+    .from(formData.entries())
+    .map(([k, v]) => `${k}=${v === 'on' || v}`).join('&')
+}
+
 // 👇 how to post a message with fetch
 function postMessage(body) {
   const fData = new FormData();
@@ -28,7 +35,7 @@ function updateMessage(id, body) {
   )
 }
 
-function getMessages () {
+function getMessages (params) {
   // fetch is a Native Browser API
   // It allows us to make web requests with JavaScript
   // that will not cause the browser to reload
@@ -36,7 +43,7 @@ function getMessages () {
   // By default, fetch will a GET request to the URL provided
   // as the first argument
   // 👇 URL: '/messages' METHOD: GET
-  return fetch('/messages?order=desc').then(response => response.json())
+  return fetch(`/messages?order=desc&${params}`).then(response => response.json())
   // Fetch is promised based and always returns a promise that resolves
   // with the response object
 }
@@ -54,7 +61,9 @@ function renderMessages (messages) {
 
 function refreshMessages() {
   const messageList = Q('#messages');
-  return getMessages()
+  const filterForm = Q('#filter');
+
+  return getMessages(urlParams(new FormData(filterForm)))
     .then(messages => {
       // to experiment with the messages object
       // let's make a global variable which will make accessible in the console
@@ -82,10 +91,10 @@ function postMessageAsJson (message) {
   })
 }
 
-
 document.addEventListener('DOMContentLoaded', () => {
   const messageList = Q('#messages');
-  const messageForm = Q('form');
+  const messageForm = Q('#new-message');
+  const filterForm = Q('#filter');
 
   messageForm.addEventListener('submit', event => {
     // don't submit, don't reload the page

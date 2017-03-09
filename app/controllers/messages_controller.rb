@@ -1,8 +1,14 @@
 class MessagesController < ApplicationController
 
   def index
-    order = params[:order] || :asc
-    render json: Message.order(created_at: order)
+    order = /DESC/i === params[:order] ? :desc : :asc
+    username = params[:username] || ''
+
+    if /TRUE/i === params[:flagged]
+      render json: Message.order(created_at: order).search(username: username).flagged
+    else
+      render json: Message.order(created_at: order).search(username: username)
+    end
   end
 
   def create

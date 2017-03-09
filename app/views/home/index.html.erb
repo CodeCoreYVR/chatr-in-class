@@ -1,10 +1,21 @@
 <h1>Chatr</h1>
 
-<form>
+<form id="new-message">
   <input type="text" name="username" placeholder="Username..." />
   <textarea name="body" placeholder="Type your message..."></textarea>
   <input type="submit" value='Post Message' />
 </form>
 
+<form id="filter">
+  <div>
+    <label for="search-by-username">Search Username</label>
+    <input type="text" id="search-by-username" name="username"/>
+  </div>
+
+  <div>
+    <label for="toggle-flagged">Toggle Flagged</label>
+    <input type="checkbox" id="toggle-flagged" name="flagged" />
+  </div>
+</form>
 <ul id="messages"></ul>
 
