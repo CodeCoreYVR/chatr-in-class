@@ -6,7 +6,8 @@ class MessagesController < ApplicationController
   end
 
   def create
-    Message.create!(body: params[:body])
+    message_params = params.permit(:body, :username)
+    Message.create!(message_params)
     head :created
   end
 

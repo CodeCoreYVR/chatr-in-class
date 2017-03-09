@@ -44,6 +44,7 @@ function getMessages () {
 function renderMessages (messages) {
   return messages.map(m => `
     <li data-id="${m.id}">
+      <strong>${m.username}</strong>
       ${m.body}
       <i class='delete-button'>X</i>
     </li>

@@ -34,7 +34,7 @@ li {
   border-radius: 5px;
 }
 
-textarea {
+textarea, input {
   box-sizing: border-box;
   width: 100%;
   border: 2px solid #ddd;
